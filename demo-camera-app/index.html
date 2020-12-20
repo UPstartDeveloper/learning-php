@@ -1,0 +1,30 @@
+<!-- Credit to Aaron Benjamin for his tutorial:
+    https://blog.prototypr.io/make-a-camera-web-app-tutorial-part-1-ec284af8dddf 
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Camera App</title>
+    <!-- Link to the main style sheet-->
+    <link rel="stylesheet" href="style.css">
+    </head>
+</head>
+<body>
+    <!-- Camera -->
+    <main id="camera">
+        <!-- Camera sensor -->
+        <canvas id="camera--sensor"></canvas>
+        <!-- Camera view -->
+        <video id="camera--view" autoplay playsinline></video>
+        <!-- Camera output -->
+        <img src="//:0" alt="" id="camera--output">
+        <!-- Camera trigger -->
+        <button id="camera--trigger">Take a picture</button>
+    </main>
+    <!-- Reference to your JavaScript file -->
+    <script src="app.js"></script>
+</body>
+
+</html>
