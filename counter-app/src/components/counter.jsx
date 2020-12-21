@@ -4,7 +4,12 @@
  class Counter extends Component {
      // when rendered, this component renders a header
      render() { 
-         return <h1>Hello World</h1>;
+         return (
+         <React.Fragment>
+            <h1>Hello World</h1>
+            <button>Increment</button>
+         </React.Fragment>
+        );
      }
  }
   
