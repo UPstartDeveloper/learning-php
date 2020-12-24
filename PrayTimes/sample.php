@@ -4,11 +4,10 @@
 	// By: Hamid Zarrabi-Zadeh
 	// Inputs : $method, $year, $latitude, $longitude, $timeZone
 	
-	import_request_variables("p");
 	include('PrayTime.php');
 
 	if (!isset($method) || !isset($year) )
-		list($method, $year, $latitude, $longitude, $timeZone) = array(0, 2007, 43, -80, -5);
+		list($method, $year, $latitude, $longitude, $timeZone) = array(0, 2020, 43, -80, -5);
 ?>
 <html>
 <head>
