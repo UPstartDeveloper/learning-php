@@ -10,8 +10,8 @@
 	// default values for the form
 	if (!isset($method) || !isset($year) )
 		list($method, $year, $latitude, $longitude, $timeZone, $month, $day) = (
-			array(0, 2020, 43, -80, -5,
-				 12, 15 
+			array(0, 2020, 42.2167, -71.5328, -5,
+				 12, 25 
 			)
 		);
 	
@@ -52,17 +52,9 @@
 
 	// get the prayer times for just the month, day, and year specified
 	$date = strtotime($year . "-$month-$day");
-	// set the end date so only the times for one day appears
-	$endDay = $day + 1;
-	$endDate = strtotime($year . "-$month-$endDay");
-
-	while ($date < $endDate)
-	{
-		$times = $prayTime->getPrayerTimes($date, $latitude, $longitude, $timeZone);
-		$day = date('M d', $date);
-		print $day. "\t". implode("\t", $times). "\n";
-		$date += 24* 60* 60;  // next day
-	}
+	$times = $prayTime->getPrayerTimes($date, $latitude, $longitude, $timeZone);
+	$day = date('M d', $date);
+	print $day . "\t" . implode("\t", $times) . "\n";
 
 ?>
 </pre>
