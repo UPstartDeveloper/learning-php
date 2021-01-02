@@ -10,13 +10,13 @@ include('PrayTime.php');
 // use values from the previous form submission
 if (isset($_GET["year"])  && isset($_GET["month"])) {
 	// use values from the previous form submission
-	list($method, $year, $month, $day) = (array(
-		0, $_GET["year"], $_GET["month"], 1
+	list($method, $year, $month, $latitude, $longitude, $timeZone) = (array(
+		0, $_GET["year"], $_GET["month"], 43, -80, -5
 	));
 // otherwise set default values for the form
 } else {
-	list($method, $year, $month, $day) = (array(
-		0, 2020, 1, 1
+	list($method, $year, $month, $latitude, $longitude, $timeZone) = (array(
+		0, 2020, 1, 43, -80, -5
 	));
 }
 
@@ -26,20 +26,39 @@ if (isset($_GET["year"])  && isset($_GET["month"])) {
 
 $prayTime = new PrayTime($method);
 
-// get the prayer times for just the month, day, and year specified
-$date = strtotime($year . "-$month-$day");
-$times = $prayTime->getPrayerTimes($date, 42.2167, -71.5328, -5);
-$day = date('M d', $date);
+// set the start date
+$date = strtotime($year . "-$month-1");
+// set the end date
+if ($month == 12) {
+	// edge case for December
+	$endDate = strtotime(($year) . "-12-31");
+} else {
+	// handle all other months by going forward 1 month
+	$endMonth = $month + 1;
+	$endDate = strtotime(($year) . "-$endMonth-1");
+	// go back to the last day of the given month
+	$endDate -= 24 * 60 * 60;
+}
 
-// make an array of the timings
+// make an array of the times we need for each day
 $prayerNames = [
 	"Fajr", "Sunrise", "Dhuhr", "Asr", "Sunset", "Maghrib", "Isa"
 ];
 
-// map the name of each time to it's specific timing
-foreach ($times as $index => $time) {
-	$prayerName = $prayerNames[$index];
-	$prayerTimes[$prayerName] = "$time";
+// map each day to another map of prayer times for that specific day
+while ($date <= $endDate) {
+	// get times for the current day
+	$times = $prayTime->getPrayerTimes($date, $latitude, $longitude, $timeZone);
+	$day = date('M d', $date);
+	// map the name of each time to it's specific timing
+	foreach ($times as $index => $time) {
+		$prayerName = $prayerNames[$index];
+		$prayerTimes[$prayerName] = "$time";
+	}
+	// map the day to its times
+	$dayToPrayerTimes[$day] = $prayerTimes;
+	// move to the next day
+	$date += 24 * 60 * 60;  
 }
 
 ?>
@@ -79,13 +98,21 @@ foreach ($times as $index => $time) {
 	<table>
 		<tbody>
 			<?php
-			// loop through the prayers and their times
-			foreach ($prayerTimes as $prayer => $time) {
+			// loop through all the days
+			foreach ($dayToPrayerTimes as $day => $prayerTimes) {
 				echo "
-							<tr>
-								<td>{$prayer}: {$time}</td>
-							</tr>
-						";
+						<thead>
+							<td><strong>{$day}<strong/></td>
+						</thead>
+					";
+				// loop through the prayers and their times
+				foreach ($prayerTimes as $prayer => $time) {
+					echo "
+						<tr>
+							<td>{$prayer}: {$time}</td>
+						</tr>
+					";
+				}
 			}
 			?>
 		</tbody>
