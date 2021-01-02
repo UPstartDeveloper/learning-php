@@ -9,9 +9,8 @@ include('PrayTime.php');
 
 // default values for the form
 if (!isset($method) || !isset($year))
-	list($method, $year, $latitude, $longitude, $timeZone, $month, $day) = (array(
-		0, 2021, 42.2167, -71.5328, -5,
-		1, 1
+	list($method, $year, $month, $day) = (array(
+		0, 2020, 1, 1
 	));
 
 ?>
@@ -22,7 +21,7 @@ $prayTime = new PrayTime($method);
 
 // get the prayer times for just the month, day, and year specified
 $date = strtotime($year . "-$month-$day");
-$times = $prayTime->getPrayerTimes($date, $latitude, $longitude, $timeZone);
+$times = $prayTime->getPrayerTimes($date, 42.2167, -71.5328, -5);
 $day = date('M d', $date);
 
 // make an array of the timings
@@ -57,9 +56,6 @@ foreach ($times as $index => $time) {
 		<form name="form" method="post" action="<?php echo $PHP_SELF ?>">
 			<div style="padding:10px; background-color: #F8F7F4; border: 1px dashed #EAE9CD;">
 
-				Latitude: <input type="text" value="<?php echo $latitude ?>" name="latitude" size="4">
-				Longitude: <input type="text" value="<?php echo $longitude ?>" name="longitude" size="4">
-				Time Zone: <input type="text" value="<?php echo $timeZone ?>" name="timeZone" size="2">
 				Year: <input type="text" value="<?php echo $year ?>" name="year" size="4"> <br>
 				Method:
 				<select id="method" name="method" size="1" onchange="document.form.submit()">
