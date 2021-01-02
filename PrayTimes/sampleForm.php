@@ -8,10 +8,10 @@
 include('PrayTime.php');
 
 // use values from the previous form submission
-if (isset($_POST["year"])  && isset($_POST["month"])) {
+if (isset($_GET["year"])  && isset($_GET["month"])) {
 	// use values from the previous form submission
 	list($method, $year, $month, $day) = (array(
-		0, $_POST["year"], $_POST["month"], 1
+		0, $_GET["year"], $_GET["month"], 1
 	));
 // otherwise set default values for the form
 } else {
@@ -60,7 +60,7 @@ foreach ($times as $index => $time) {
 <body>
 
 	<h1> Prayer Timetable</h1>
-	<form name="form" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+	<form name="form" method="get" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 		<div style="padding:10px; background-color: #F8F7F4; border: 1px dashed #EAE9CD;">
 
 			Year: <input type="text" value="<?php echo $year ?>" name="year" size="4"> <br>
