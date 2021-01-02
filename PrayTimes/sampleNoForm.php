@@ -53,23 +53,7 @@ foreach ($times as $index => $time) {
 
 	<body>
 
-		<h1> Prayer Timetable </h1>
-		<form name="form" method="post" action="<?php echo $PHP_SELF ?>">
-			<div style="padding:10px; background-color: #F8F7F4; border: 1px dashed #EAE9CD;">
-
-				Latitude: <input type="text" value="<?php echo $latitude ?>" name="latitude" size="4">
-				Longitude: <input type="text" value="<?php echo $longitude ?>" name="longitude" size="4">
-				Time Zone: <input type="text" value="<?php echo $timeZone ?>" name="timeZone" size="2">
-				Year: <input type="text" value="<?php echo $year ?>" name="year" size="4"> <br>
-				Method:
-				<select id="method" name="method" size="1" onchange="document.form.submit()">
-					<option value="0">Shia Ithna-Ashari</option>
-				</select>
-				<input type="submit" value="Make Timetable">
-
-			</div>
-		</form>
-		
+		<h1> Prayer Timetable </h1>		
 
 		<!-- Prayer Times in 2 Columns -->
 		<table>
