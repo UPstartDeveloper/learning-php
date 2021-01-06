@@ -105,14 +105,27 @@ while ($date <= $endDate) {
 							<td><strong>{$day}<strong/></td>
 						</thead>
 					";
-				// loop through the prayers and their times
+				// start a row for the 7 prayer times
+				echo "
+					<tr>
+						<th>Fajr</th>
+						<th>Sunrise</th>
+						<th>Dhuhr</th>
+						<th>Asr</th>
+						<th>Sunset</th>
+						<th>Maghrib</th>
+						<th>Isa</th>
+					</tr>
+					<tr>
+					";
+				// loop through the prayer times for this day, on the next row
 				foreach ($prayerTimes as $prayer => $time) {
 					echo "
-						<tr>
-							<td>{$prayer}: {$time}</td>
-						</tr>
+						<td>{$time}</td>
 					";
 				}
+				// end the row
+				echo "</tr>";
 			}
 			?>
 		</tbody>
