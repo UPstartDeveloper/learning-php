@@ -10,7 +10,7 @@ include('PrayTime.php');
 // default values for the form
 if (!isset($method) || !isset($year))
 	list($method, $year, $month, $day) = (array(
-		0, 2021, 1, 1
+		0, 2021, 5, 26
 	));
 
 ?>
@@ -21,7 +21,8 @@ $prayTime = new PrayTime($method);
 
 // get the prayer times for just the month, day, and year specified
 $date = strtotime($year . "-$month-$day");
-$times = $prayTime->getPrayerTimes($date, 42.2167, -71.5328, -5);
+// $times = $prayTime->getPrayerTimes($date, 42.2167, -71.5328, -5);
+$times = $prayTime->getDatePrayerTimes($year, $month, $day, 42.2167, -71.5328, -5);
 $day = date('M d', $date);
 
 // make an array of the timings

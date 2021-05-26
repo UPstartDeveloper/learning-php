@@ -49,6 +49,7 @@ $prayerNames = [
 while ($date <= $endDate) {
 	// get times for the current day
 	$times = $prayTime->getPrayerTimes($date, $latitude, $longitude, $timeZone);
+	// $times = $prayTime->getDatePrayerTimes($year, $month, $day, 42.2167, -71.5328, -5);
 	$day = date('M d', $date);
 	// map the name of each time to it's specific timing
 	foreach ($times as $index => $time) {
